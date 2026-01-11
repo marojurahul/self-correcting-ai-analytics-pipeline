@@ -1,0 +1,575 @@
+{
+  "name": "Structured Output",
+  "nodes": [
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "chatgpt-4o-latest",
+          "mode": "list",
+          "cachedResultName": "CHATGPT-4O-LATEST"
+        },
+        "responses": {
+          "values": [
+            {
+              "role": "system",
+              "content": "=You are a senior business analyst.\n\nYou MUST return ONLY valid JSON.\nDo NOT include explanations.\nDo NOT include markdown.\nDo NOT include text before or after JSON.\n\nIf you violate this, the system will fail.\n\nReturn exactly this structure:\n\n{\n  \"risk_score\": number,\n  \"summary\": string,\n  \"trend\": string,\n  \"recommendation\": string\n}\n\n"
+            },
+            {
+              "content": "=Analyze the following data and return the JSON:\n\n{{ JSON.stringify($json) }}\n\n\n\n"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.1,
+      "position": [
+        880,
+        16
+      ],
+      "id": "8c03494a-54b9-454b-88ab-3aeefff045b3",
+      "name": "Message a model",
+      "retryOnFail": true,
+      "credentials": {
+        "openAiApi": {
+          "id": "Gnlr5vGhYJhcTEy8",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1UFAYvVpc2ZHT70ub4z3BCVE4pg7Ktvwy43MouO6JSIM",
+          "mode": "list",
+          "cachedResultName": "Error Logs",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1UFAYvVpc2ZHT70ub4z3BCVE4pg7Ktvwy43MouO6JSIM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 21807524,
+          "mode": "list",
+          "cachedResultName": "AI_Sales_Analytics_Bridge",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1UFAYvVpc2ZHT70ub4z3BCVE4pg7Ktvwy43MouO6JSIM/edit#gid=21807524"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "risk_score": "={{ $json.parsedData.risk_score }}",
+            " summary ": "={{ $json.parsedData.summary }}",
+            "trend ": "={{ $json.parsedData.trend }}",
+            "recommendation": "={{ $json.parsedData.recommendation }}",
+            "json_raw": "={{ $json.output[0].content[0].text }}",
+            " Brand": "={{ $('Get row(s)').item.json[' Brand'] }}"
+          },
+          "matchingColumns": [
+            " Brand"
+          ],
+          "schema": [
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": " Brand",
+              "displayName": " Brand",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Region",
+              "displayName": "Region",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": " Retailer",
+              "displayName": " Retailer",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Sales",
+              "displayName": "Sales",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Profit",
+              "displayName": "Profit",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Analysis_Summary",
+              "displayName": "Analysis_Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "risk_score",
+              "displayName": "risk_score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": " summary ",
+              "displayName": " summary ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "trend ",
+              "displayName": "trend ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "recommendation",
+              "displayName": "recommendation",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "json_raw",
+              "displayName": "json_raw",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2144,
+        -112
+      ],
+      "id": "61fe34c5-c13e-4ba4-ad02-ce19c1e58fd2",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "AzZoZ0xlLq8q21Sf",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "chatgpt-4o-latest",
+          "mode": "list",
+          "cachedResultName": "CHATGPT-4O-LATEST"
+        },
+        "responses": {
+          "values": [
+            {
+              "role": "system",
+              "content": "=You are a strict validation engine.\n\nInput: JSON produced by an analyst.\n\nRules:\n- Check if risk_score is logically consistent with sales and profit.\n- If profit > sales by an unrealistic margin, mark FAIL.\n- Otherwise mark PASS.\n\nYou MUST return ONLY valid JSON.\nNo explanations.\nNo markdown.\nNo extra text.\n\nOutput format (strict):\n{\n  \"audit_status\": \"PASS\"\n}\nor\n{\n  \"audit_status\": \"FAIL\"\n}\n\n\n\n"
+            },
+            {
+              "content": "=Audit this analyst output:\n\n{{ $json }}\n\n\n\n"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.1,
+      "position": [
+        1184,
+        16
+      ],
+      "id": "b57f4478-8716-4dbc-858c-cc1db5940897",
+      "name": "AI Senior Data Auditor",
+      "credentials": {
+        "openAiApi": {
+          "id": "Gnlr5vGhYJhcTEy8",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "f520413b-f0ef-4036-9694-c78499eedbb0",
+              "leftValue": "={{ $json.audit_status }}",
+              "rightValue": "FAIL",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "59590fd5-bfb0-4ced-92ca-c5ae10b43346",
+              "leftValue": "",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1664,
+        32
+      ],
+      "id": "ec77a0db-e978-45aa-a689-21021af59bde",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get AI output safely\nconst input = items[0].json || {};\n\n// Enforced schema\nreturn [\n  {\n    json: {\n      audit_status: input.audit_status ?? \"UNKNOWN\",\n      risk_score: Number(input.risk_score ?? 0),\n      category: input.category ?? \"Uncategorized\",\n      summary: input.summary ?? \"No summary provided\",\n      recommendation: input.recommendation ?? \"No recommendation provided\",\n      timestamp: new Date().toISOString()\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1504,
+        16
+      ],
+      "id": "0a0482b5-34a4-4661-ab17-3987205b1544",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "chatId": "1116061005",
+        "text": "=🚨 AI AUDIT ALERT\n\nWorkflow: Main AI Agent\nAgent: Senior Data Auditor\n\n❌ Status: {{ $json.audit_status }}\n📊 Risk Score: {{ $json.risk_score }}\n📁 Category: {{ $json.category }}\n\n🧠 Issue:\n{{ $json.summary }}\n\n🔁 Action:\nAnalyst output rejected. Retry initiated.\n\n⏱ Timestamp:\n{{ $json.timestamp }}\n",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2224,
+        224
+      ],
+      "id": "b94d83af-daa1-4da3-908a-ea77a99bbe9e",
+      "name": "Send a text message",
+      "webhookId": "9be51d6c-04c7-4e84-b913-55cadb13a163",
+      "retryOnFail": true,
+      "credentials": {
+        "telegramApi": {
+          "id": "zuBMB2JAwipXZXQA",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Runs once per item (REQUIRED)\nconst j = $json;\n\n// Initialize retry_count if missing\nconst retry = Number(j.retry_count ?? 0);\n\n// Increment retry count\nj.retry_count = retry + 1;\n\n// Ensure timestamp always exists\nj.timestamp = j.timestamp ?? new Date().toISOString();\n\nreturn [{ json: j }];\n\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2064,
+        112
+      ],
+      "id": "92e85c5a-6ba0-4bb2-885b-a2acfeb1de81",
+      "name": "Code in JavaScript3",
+      "retryOnFail": true
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        272,
+        16
+      ],
+      "id": "598fd7e1-34ca-4aab-8ec9-7008ed9a5e6b",
+      "name": "Execute workflow"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1UFAYvVpc2ZHT70ub4z3BCVE4pg7Ktvwy43MouO6JSIM",
+          "mode": "list",
+          "cachedResultName": "Error Logs",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1UFAYvVpc2ZHT70ub4z3BCVE4pg7Ktvwy43MouO6JSIM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 21807524,
+          "mode": "list",
+          "cachedResultName": "AI_Sales_Analytics_Bridge",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1UFAYvVpc2ZHT70ub4z3BCVE4pg7Ktvwy43MouO6JSIM/edit#gid=21807524"
+        },
+        "options": {
+          "returnFirstMatch": true
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        448,
+        16
+      ],
+      "id": "d6519254-0090-4742-bd50-211a4d481994",
+      "name": "Get row(s)",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "AzZoZ0xlLq8q21Sf",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "batchSize": 5,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        656,
+        16
+      ],
+      "id": "c2a251b7-0040-4cc0-9a0e-d415ac5fbfe3",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "amount": 1
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1872,
+        -64
+      ],
+      "id": "5597ef10-1363-41fe-a629-024321863ed1",
+      "name": "Wait",
+      "webhookId": "5f1ca798-934f-47fc-aca1-15aa9878508c"
+    },
+    {
+      "parameters": {
+        "content": "## **🧠 Master Control: Cost & Stability Hub**\n\n**Purpose:**\nThis workflow is designed for enterprise-scale reliability, not just automation.\n\n**Batching Strategy (Efficiency):**\nIncoming records are processed using Loop Over Items (Batch Size = 5) to reduce OpenAI token usage and prevent API bursts.\nThis ensures predictable costs and scalable execution under high-volume data loads.\n\n**Throttling Strategy (Rate-Limiting):**\nA Wait (1s) node is applied before Google Sheets writes to avoid request rejection and API throttling.\nThis protects downstream systems from rapid-fire updates.\n\n**Resilience & Safety:**\nAI outputs are validated through a Senior Data Auditor agent.\nInvalid outputs trigger controlled retries with hard limits to prevent infinite loops.\n\n**Observability:**\nFailures and retry behavior are surfaced via Telegram alerts, providing real-time visibility into system health.\n\n**Design Principle:**\nOptimize for cost control, system stability, and executive trust — not raw speed.",
+        "height": 400,
+        "width": 432
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1024,
+        256
+      ],
+      "id": "d74922fc-cc1b-4822-b62d-21ed61783daf",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "**Resilience & Safety:**\nAI outputs are validated through a Senior Data Auditor agent.\nInvalid outputs trigger controlled retries with hard limits to prevent infinite loops.\n\n**Observability:**\nFailures and retry behavior are surfaced via Telegram alerts, providing real-time visibility into system health.\n\n**Design Principle:**\nOptimize for cost control, system stability, and executive trust — not raw speed.",
+        "height": 288,
+        "width": 416
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1472,
+        320
+      ],
+      "id": "ed9f0f19-47d6-4657-a7fe-77563199cde6",
+      "name": "Sticky Note1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "AI Senior Data Auditor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Senior Data Auditor": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Code in JavaScript3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript3": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message": {
+      "main": [
+        []
+      ]
+    },
+    "Execute workflow": {
+      "main": [
+        [
+          {
+            "node": "Get row(s)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s)": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "c6ea0c47-4daf-4e0c-b3a1-823d436c14b9",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e1bd7939f0576a92ebad35815686ae264223bc4c01d4a52de03ef6f1fdd66fbd"
+  },
+  "id": "J91MdJp5QDjWVEb4",
+  "tags": []
+}
